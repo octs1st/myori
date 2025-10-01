@@ -1,0 +1,194 @@
+/* /assets/css/style.css */
+
+/* 폰트 및 기본 설정 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+@font-face {
+    font-family: 'MyoriHamzzi'; 
+    
+    /* 2. 폰트 파일의 위치를 정확하게 지정한다냥! (.ttf 파일은 src 속성에) */
+    src: url('../assets/fonts/Aa햄찌체.ttf') format('truetype'); 
+    
+    font-weight: normal; 
+    font-style: normal;
+}
+
+body {
+    background-color: #fce4ec; /* 전체 배경을 연한 핑크색으로 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden; /* 전체 페이지 스크롤 방지 */
+}
+
+
+
+/* 19.5:9 화면 비율을 강제하는 핵심 CSS다냥! */
+.app-frame {
+    width: 380px; /* 고정 너비 설정 */
+    height: 741px; /* 380 * 1.95 = 741. 맞춤 높이 설정 */
+    max-height: 100vh; /* 뷰포트 높이보다 커지지 않게 */
+    max-width: 100vw; /* 뷰포트 너비보다 커지지 않게 */
+    background-color: #fff;
+    border-radius: 25px; /* 앱 테두리 둥글게 */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 앱 프레임 내부 스크롤바 숨기기 */
+    position: relative; /* FAB 버튼 기준점 */
+}
+
+/* 헤더 스타일 */
+.app-header {
+    background-color: #ffcdd2; /* 헤더도 핑크색으로 */
+    color: var(--color-text-main);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffb6c1;
+}
+.app-header .header-cat-icon {
+    font-size: 1.8em; /* 고양이 아이콘 크기 */
+    margin-right: 10px;
+}
+.app-header .header-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    flex-grow: 1; /* 제목이 가운데 오도록 */
+    text-align: center;
+    color: #4a4a4a; /* 글자색 */
+}
+.app-header .setting-link {
+    font-size: 1.5em;
+    color: #888;
+    text-decoration: none;
+}
+
+
+/* 캘린더 네비게이션 (월 이동) */
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.calendar-nav button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #d81b60; /* 핑크 계열 */
+    padding: 5px 10px;
+}
+.calendar-nav h2 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0;
+    color: #4a4a4a;
+}
+
+/* 캘린더 그리드 */
+.calendar-container {
+    padding: 15px;
+    flex-grow: 1; /* 남은 공간을 캘린더가 채우도록 */
+    overflow-y: auto; /* 캘린더가 길어질 경우 스크롤 가능 */
+}
+.day-names, .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px; /* 셀 간격 */
+    text-align: center;
+}
+.day-names span {
+    font-weight: bold;
+    color: #d81b60; /* 일,월,화... 핑크색 */
+    padding-bottom: 5px;
+}
+.day-names span:first-child { color: #e57373; } /* 일요일은 좀 더 빨간 핑크 */
+
+.day-cell {
+    height: 45px; /* 높이 고정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    position: relative;
+    cursor: pointer;
+    color: #555;
+}
+.day-cell.empty { /* 이전/다음 달 빈칸 */
+    background-color: #f7f7f7;
+    color: #bbb;
+}
+.day-cell.past-month, .day-cell.next-month { /* 현재 달이 아닌 날짜 */
+    color: #aaa;
+}
+.day-cell.is-today {
+    background-color: #ff80ab; /* 오늘 날짜는 진한 핑크 */
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.day-cell.has-diary {
+    border: 2px solid #6a5acd; /* 일기 있는 날은 고양이 포인트색 테두리 */
+    background-color: #fbe9e7; /* 연한 배경 */
+}
+.day-cell.is-today.has-diary {
+    background-color: #9c27b0; /* 오늘 + 기록은 더 강한 포인트 */
+    border-color: #fff;
+}
+
+
+/* 오늘의 요약 카드 */
+.today-summary {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #ffb6c1; /* 핑크 포인트 */
+}
+.today-summary p {
+    margin: 5px 0;
+    line-height: 1.5;
+    color: #4a4a4a;
+}
+.today-summary strong {
+    color: #d81b60;
+}
+
+
+/* FAB (Floating Action Button) 일기 작성 버튼 */
+.fab-button {
+    position: absolute;
+    bottom: 25px; /* 앱 하단에서 25px 위 */
+    right: 25px; /* 앱 오른쪽에서 25px 안쪽 */
+    width: 65px; /* 작고 귀여운 동그라미 */
+    height: 65px;
+    border-radius: 50%;
+    background-color: #ff80ab; /* 진한 핑크색 */
+    color: white;
+    font-size: 38px; /* + 아이콘 크기 */
+    border: 2px solid #fff; /* 주변에 더 연한 핑크색 테두리 */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+.fab-button:hover {
+    background-color: #e91e63; /* 호버 시 색상 변경 */
+}
+.fab-button span {
+    line-height: 10; /* + 기호 세로 중앙 정렬 */
+    display: block;
+    transform: translateY(-2px); /* 미세 조정 */
+}

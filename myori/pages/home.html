@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>묘리</title>
+    <link rel="stylesheet" href="../assets/css/home.css">   
+</head>
+<body>
+
+    <div class="app-frame">
+        
+        <header class="app-header">
+            <span class="header-cat-icon">묘리</span> 
+            <h1 class="header-title" id="current-month-year"></h1> <a href="settings.php" class="setting-link">⚙️</a>
+        </header>
+
+        <main class="calendar-container">
+            <div class="calendar-nav"> <button id="prev-month"> < </button>
+                <h2 id="current-display-month"></h2> <button id="next-month"> > </button>
+            </div>
+            
+            <div class="day-names">
+                <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+            </div>
+            
+            <div id="calendar-grid" class="calendar-grid">
+                </div>
+            
+            <section class="today-summary myori-card">
+                <p>오늘의 일진: <strong id="today-iljin"></strong></p>
+                <p>AI 피드백: <span id="today-ai-feedback"></span></p>
+            </section>
+
+        </main>
+
+        <button id="fab-write" class="fab-button"><span>+</span></button> </div>
+
+    <script src="../assets/js/main.js"></script> </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>묘리</title>
+    <link rel="stylesheet" href="../assets/css/pillar.css">     
+
+</head>
+<body>
+    <div class="app-frame">
+        <div class="container">
+            <h1>나의 일주(日柱)는? 😼</h1>
+        </div>
+
+        <script>
+        // 🚨 실제 만세력 계산은 이 함수 안에 아주 복잡한 로직이 들어간다냥!
+        // 60일 주기(육십갑자)는 총 60개다냥.
+            const GANJI_CYCLE = [
+                "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
+                "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
+                "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
+                "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯",
+                "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
+                "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
+            ];
+
+            function calculateAndDisplayIlju() {
+                const dateValue = document.getElementById('birthDateInput').value;
+                const resultElement = document.getElementById('ilju-result');
+
+                if (!dateValue) {
+                    resultElement.textContent = "날짜를 선택하라냥!";
+                    return;
+                }
+
+                const birthDate = new Date(dateValue);
+            
+            // 🚨 핵심 원리: 기준일로부터 총 지난 날짜를 계산한다냥!
+            // 여기서는 1900년 1월 1일(庚子)을 기준일로 가정한다냥! (실제 만세력 기준일은 더 복잡하다냥)
+                const referenceDate = new Date('1900-01-01');
+            
+            // 1900년 1월 1일은 庚子(경자)로, 60일 주기 중 37번째다냥! (index 36)
+                const referenceIndex = 36; 
+
+            // 총 지난 밀리초를 일(day)로 변환한다냥!
+                const diffTime = Math.abs(birthDate - referenceDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // 60일 주기로 나눈 나머지를 구해서 일주를 찾는다냥!
+                const iljuIndex = (diffDays + referenceIndex) % 60;
+            
+                const ilju = GANJI_CYCLE[iljuIndex];
+            
+            // 결과를 화면에 표시한다냥!
+                resultElement.textContent = `일주: ${ilju}`;
+            
+            // 🚨 주의: 이 코드는 윤년 등을 고려하지 않은 단순 계산 모델이다냥! 
+            // 정확한 만세력은 복잡한 천문 계산이 필요하니, 실제 서비스에서는 
+            // 전문 라이브러리(예: 'pysaju' 같은)를 사용해야 한다냥! 
+            }
+    </script>
+    </div>
+
+</body>
+</html>
